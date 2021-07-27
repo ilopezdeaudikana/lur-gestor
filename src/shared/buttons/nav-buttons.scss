@@ -1,0 +1,13 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  .left {
+    display: inline-flex;
+    margin-right: 1rem;
+  }
+  .right {
+    cursor: pointer;
+    flex: 1;
+    text-align: right;
+  }
+}
