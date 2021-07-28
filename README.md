@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Lur gestor
+
+Small CMS created using React, Typescript, React hooks, Redux, Sagas, Antd and Styled components and tested using Jest.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
