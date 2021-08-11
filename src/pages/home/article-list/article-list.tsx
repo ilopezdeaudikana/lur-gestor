@@ -4,8 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Table } from 'antd';
 import { fetchArticles } from '../../../store/actions/actions';
 import { ArticleListConfig, State } from '../../../shared/models';
-
 import { DeleteButton } from '../../../shared/buttons';
+
+import styled from 'styled-components';
+export const TitleLink = styled.h2`
+  :hover {
+    color: #1890ff;
+  }
+`;
 
 interface Props {
   limit: number;
@@ -33,7 +39,7 @@ export const ArticleList: React.FC<Props> = React.memo((props: Props) => {
       key: 'titulo',
       render: (text: string, row: any) => (
         <Link to={'/article/' + row.url}>
-          <h2 dangerouslySetInnerHTML={{ __html: text }}></h2>
+          <TitleLink dangerouslySetInnerHTML={{ __html: text }}></TitleLink>
         </Link>
       ),
     },

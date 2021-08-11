@@ -1,6 +1,6 @@
-import { Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Space } from 'antd';
 import { NavButtons } from '../../shared/buttons/nav-buttons';
 import { ArticleForm } from '../../shared/form/article-form';
 import { Article, State } from '../../shared/models';
@@ -23,10 +23,10 @@ export const EditorPage: React.FC<Props> = () => {
       {!id && <div>Loading articles...</div>}
 
       {id && (
-        <Fragment>
+        <Space direction='vertical'>
           <NavButtons id={id} />
           <ArticleForm article={article} />
-        </Fragment>
+        </Space>
       )}
     </div>
   );

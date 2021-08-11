@@ -1,6 +1,7 @@
 import { useEffect, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Divider } from 'antd';
 import { State } from '../../shared/models';
 import { fetchArticle } from '../../store/actions/actions';
 import { NavButtons } from '../../shared/buttons/nav-buttons';
@@ -30,9 +31,9 @@ export const ArticlePage: React.FC<Props> = ({ match }) => {
         <Fragment>
           <h1>{article.titulo}</h1>
           <NavButtons id={article.id} />
-          <hr />
+          <Divider />
           <div dangerouslySetInnerHTML={{ __html: article.noticia }}></div>
-          <hr />
+          <Divider />
           <NavButtons id={article.id} />
         </Fragment>
       )}

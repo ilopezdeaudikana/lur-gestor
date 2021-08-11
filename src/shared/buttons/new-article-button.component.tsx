@@ -4,7 +4,7 @@ import { FileAddOutlined } from '@ant-design/icons';
 export const NewArticleButton = () => {
   return (
     <span>
-      <Link className='btn btn-sm btn-outline-secondary' to='/create'>
+      <Link to='/create'>
         <FileAddOutlined /> Crear art&iacute;culo nuevo
       </Link>
     </span>

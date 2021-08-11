@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Space } from 'antd';
 import { NavButtons } from '../../shared/buttons/nav-buttons';
 import { ArticleForm } from '../../shared/form/article-form';
 
@@ -12,10 +12,10 @@ interface Props {
 export const CreatePage: React.FC<Props> = () => {
   return (
     <div className='container'>
-      <Fragment>
+      <Space direction='vertical'>
         <NavButtons />
         <ArticleForm />
-      </Fragment>
+      </Space>
     </div>
   );
 };

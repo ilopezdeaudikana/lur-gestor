@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Space } from 'antd';
 import { TextEditor } from './text-editor';
 import { Uploader } from './uploader';
 import { updateArticle, createArticle } from '../../store/actions/actions';
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const ArticleForm: React.FC<Props> = ({ article }) => {
-  const { titulo, noticia, imagen_frontal, imagen_mini, id } = article || {};
+  const { titulo, noticia, id } = article || {};
   let tinymce: any;
   const [form] = Form.useForm();
   const dispatch = useDispatch();
@@ -50,8 +50,6 @@ export const ArticleForm: React.FC<Props> = ({ article }) => {
   if (article) {
     form.setFieldsValue({
       titulo,
-      imagen_frontal_text: imagen_frontal,
-      imagen_mini_text: imagen_mini,
     });
   }
 
@@ -79,10 +77,10 @@ export const ArticleForm: React.FC<Props> = ({ article }) => {
     <Fragment>
       <Form
         form={form}
-        labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
+        layout='vertical'
       >
         <Form.Item
           label='T&iacute;tulo'
@@ -96,27 +94,23 @@ export const ArticleForm: React.FC<Props> = ({ article }) => {
         >
           <Input />
         </Form.Item>
+        <Space direction='vertical'>
+          <Uploader name='imagen_frontal' label='Imagen Grande' />
 
-        <Form.Item label='Imagen grande' name='imagen_frontal_text'>
-          <Input />
-        </Form.Item>
-        <Uploader name='imagen_frontal' label='Imagen Grande' />
-        <Form.Item label='Imagen pequeña' name='imagen_mini_text'>
-          <Input />
-        </Form.Item>
+          <Uploader name='imagen_mini' label='Miniatura' />
 
-        <Uploader name='imagen_mini' label='Miniatura' />
-        <TextEditor
-          noticia={noticia}
-          setTextEditor={(e: any) => setTextArea(e)}
-        />
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type='primary' htmlType='submit'>
-            Publicar Art&iacute;culo
-          </Button>
-        </Form.Item>
+          <TextEditor
+            noticia={noticia}
+            setTextEditor={(e: any) => setTextArea(e)}
+          />
+
+          <Form.Item wrapperCol={{ span: 16 }}>
+            <Button type='primary' htmlType='submit'>
+              Publicar Art&iacute;culo
+            </Button>
+          </Form.Item>
+        </Space>
       </Form>
-      <hr />
     </Fragment>
   );
 };

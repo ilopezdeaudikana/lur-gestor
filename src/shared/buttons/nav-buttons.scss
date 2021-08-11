@@ -4,6 +4,9 @@
   .left {
     display: inline-flex;
     margin-right: 1rem;
+    svg {
+      margin-right: 0.5rem;
+    }
   }
   .right {
     cursor: pointer;
