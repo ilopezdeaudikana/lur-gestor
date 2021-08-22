@@ -17,17 +17,26 @@ export const fetchArticle = (url: string) => ({
   payload: url,
 });
 
-export const deleteArticle = (id: string) => ({
+export const deleteArticle = (obj: {
+  id: string;
+  history: { push: (path: string) => void };
+}) => ({
   type: ARTICLE_DELETE_REQUESTED,
-  payload: id,
+  payload: obj,
 });
 
-export const updateArticle = (article: Article) => ({
+export const updateArticle = (obj: {
+  article: Article;
+  history: { push: (path: string) => void };
+}) => ({
   type: ARTICLE_UPDATE_REQUESTED,
-  payload: article,
+  payload: obj,
 });
 
-export const createArticle = (article: Partial<Article>) => ({
+export const createArticle = (obj: {
+  article: Partial<Article>;
+  history: { push: (path: string) => void };
+}) => ({
   type: ARTICLE_CREATE_REQUESTED,
-  payload: article,
+  payload: obj,
 });

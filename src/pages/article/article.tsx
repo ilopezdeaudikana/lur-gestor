@@ -1,20 +1,13 @@
 import { useEffect, Fragment } from 'react';
-import { withRouter } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Divider } from 'antd';
 import { State } from '../../shared/models';
 import { fetchArticle } from '../../store/actions/actions';
 import { NavButtons } from '../../shared/buttons/nav-buttons';
 
-interface Props {
-  match: any;
-  location: any;
-  history: any;
-  limit: number;
-}
-
-export const ArticlePage: React.FC<Props> = ({ match }) => {
-  const { url } = match.params;
+export const ArticlePage: React.FC = () => {
+  const { url } = useParams<{url: string;}>();
   const dispatch = useDispatch();
   const article = useSelector((state: State) => state.currentArticle);
   useEffect(() => {
@@ -41,4 +34,3 @@ export const ArticlePage: React.FC<Props> = ({ match }) => {
   );
 };
 
-export const ArticlePageWithRouter = withRouter(ArticlePage);

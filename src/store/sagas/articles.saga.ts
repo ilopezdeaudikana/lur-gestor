@@ -1,6 +1,5 @@
 import { call, put, takeLatest, all } from 'redux-saga/effects';
 import { message } from 'antd';
-import history from '../../history';
 import { Action, Article, ArticlesResponse } from '../../shared/models';
 import {
   getArticles,
@@ -25,10 +24,6 @@ export const ARTICLE_DELETE_SUCCEEDED = 'ARTICLE_DELETE_SUCCEEDED';
 export const ARTICLE_DELETE_FAILED = 'ARTICLE_DELETE_FAILED';
 export const ARTICLE_DELETE_REQUESTED = 'ARTICLE_DELETE_REQUESTED';
 
-function forwardTo(location: string) {
-  history.push(location);
-}
-
 export function* fetchArticles(action: Action) {
   try {
     const response: ArticlesResponse = yield call(getArticles, action.payload);
@@ -51,37 +46,37 @@ export function* fetchArticle(action: Action) {
 
 export function* updateArticle(action: Action) {
   try {
-    const response: Article = yield call(save, action.payload);
+    const response: Article = yield call(save, action.payload.article);
     yield put({ type: ARTICLE_UPDATE_SUCCEEDED, payload: response });
-    yield call(forwardTo, `/`);
-    yield call([message, 'info'],'Post guardado con éxito');
+    yield call(action.payload.history.push, `/`);
+    yield call([message, 'info'], 'Post guardado con éxito');
   } catch (e) {
     console.log(e);
-    yield call([message, 'error'],'No se ha podido guardar el post');
+    yield call([message, 'error'], 'No se ha podido guardar el post');
   }
 }
 
 export function* createArticle(action: Action) {
   try {
-    const response: Article = yield call(save, action.payload);
+    const response: Article = yield call(save, action.payload.article);
     yield put({ type: ARTICLE_CREATE_SUCCEEDED, payload: response });
-    yield call(forwardTo, `/`);
-    yield call([message, 'info'],'Acabas de crear un nuevo post');
+    yield call(action.payload.history.push, `/`);
+    yield call([message, 'info'], 'Acabas de crear un nuevo post');
   } catch (e) {
     console.log(e);
-    yield call([message, 'error'],'No se ha podido crear el post');
+    yield call([message, 'error'], 'No se ha podido crear el post');
   }
 }
 
 export function* deleteArticle(action: Action) {
   try {
-    yield call(destroy, action.payload);
-    yield put({ type: ARTICLE_DELETE_SUCCEEDED, payload: action.payload });
-    yield call(forwardTo, `/`);
-    yield call([message, 'info'],'Acabas de eliminar un post');
+    yield call(destroy, action.payload.id);
+    yield put({ type: ARTICLE_DELETE_SUCCEEDED, payload: action.payload.id });
+    yield call(action.payload.history.push, `/`);
+    yield call([message, 'info'], 'Acabas de eliminar un post');
   } catch (e) {
     console.log(e);
-    yield call([message, 'error'],'No se ha podido eliminar el post');
+    yield call([message, 'error'], 'No se ha podido eliminar el post');
   }
 }
 

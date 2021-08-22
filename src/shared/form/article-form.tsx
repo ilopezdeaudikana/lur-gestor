@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Form, Input, Button, Space } from 'antd';
 import { TextEditor } from './text-editor';
 import { Uploader } from './uploader';
@@ -16,6 +17,7 @@ export const ArticleForm: React.FC<Props> = ({ article }) => {
   let tinymce: any;
   const [form] = Form.useForm();
   const dispatch = useDispatch();
+  const history = useHistory();
   const onFinish = async (values: any) => {
     const newValues: Article = Object.assign({}, values);
     const imageMini = values.imagen_mini
@@ -42,9 +44,9 @@ export const ArticleForm: React.FC<Props> = ({ article }) => {
       newValues.noticia = tinymce.getContent();
     }
     if (id) {
-      dispatch(updateArticle({ ...newValues, id }));
+      dispatch(updateArticle({ article: { ...newValues, id }, history }));
     } else {
-      dispatch(createArticle({ ...newValues }));
+      dispatch(createArticle({ article: { ...newValues }, history }));
     }
   };
   if (article) {

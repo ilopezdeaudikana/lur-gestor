@@ -1,21 +1,17 @@
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
 import { render, cleanup } from '@testing-library/react';
 import { ArticlePage } from './article';
 import { ARTICLE_FETCH_REQUESTED } from '../../store/sagas/articles.saga';
-
+jest.mock('react-router-dom', () => ({
+  useParams: () => ({ url: 'url-to-test' }),
+  useHistory: jest.fn(),
+  Link: () => '<div></div>'
+}));
 afterEach(cleanup);
 const middlewares: any = [];
 const mockStore = configureStore(middlewares);
 
-const fakeProps = {
-  location: 'any',
-  history: 'any',
-  limit: 10,
-  match: { params: { url: 'dummy' } },
-};
 describe('Article', () => {
   it('Should fetch an article', async () => {
     const initialState = {};
@@ -23,11 +19,14 @@ describe('Article', () => {
 
     render(
       <Provider store={store}>
-        <ArticlePage {...fakeProps} />
+        <ArticlePage />
       </Provider>
     );
     const actions = store.getActions();
-    const expectedPayload = { type: ARTICLE_FETCH_REQUESTED, payload: 'dummy' };
+    const expectedPayload = {
+      type: ARTICLE_FETCH_REQUESTED,
+      payload: 'url-to-test',
+    };
     expect(actions).toEqual([expectedPayload]);
   });
 
@@ -41,13 +40,10 @@ describe('Article', () => {
       },
     };
     const store = mockStore(initialState);
-    const history = createMemoryHistory();
     const { getByText } = render(
-      <Router history={history}>
-        <Provider store={store}>
-          <ArticlePage {...fakeProps} />
-        </Provider>
-      </Router>
+      <Provider store={store}>
+        <ArticlePage />
+      </Provider>
     );
     const title = getByText(/bla bla bla.../);
     expect(title).toBeInTheDocument();
