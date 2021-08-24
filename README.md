@@ -1,4 +1,4 @@
-# Lur gestor
+# Lur CMS
 
 Small CMS created using `React`, `Typescript`, `React hooks`, `Redux`, `Sagas`, `Antd` and `Styled components` and tested using `Jest`.
 
