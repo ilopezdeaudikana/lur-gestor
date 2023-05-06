@@ -2,6 +2,10 @@
 
 Small CMS created using `React`, `Typescript`, `React hooks`, `Redux`, `Sagas`, `Antd` and `Styled components` and tested using `Jest`.
 
+In `development` mode, type anything to bypass the login view
+
+TODO: Migrate to `redux-toolkit`
+
 ### Available Scripts
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). In the project directory, you can run:
