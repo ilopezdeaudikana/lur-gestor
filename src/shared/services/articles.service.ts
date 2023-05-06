@@ -29,7 +29,7 @@ export const getArticles = (
       const { offset, limit } = query.filters;
       const total =
         offset !== undefined && limit !== undefined ? offset + limit : 0;
-      return resolve({
+      resolve({
         data: {
           list: input.slice(offset, total),
           total: input.length,

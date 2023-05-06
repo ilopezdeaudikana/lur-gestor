@@ -2,17 +2,17 @@ import { Editor } from '@tinymce/tinymce-react';
 import { useRef } from 'react';
 
 interface Props {
-  noticia?: string;
+  content?: string;
   setTextEditor: Function;
 }
 
-export const TextEditor: React.FC<Props> = ({noticia, setTextEditor}) => {
+export const TextEditor: React.FC<Props> = ({content, setTextEditor}) => {
   const editorRef = useRef({} as any);
   return (
     <Editor
       apiKey='ewrg3dvc9j78a68m199leyfkmu3dhbg1i791rgtv8vgews3k'
       onInit={(evt, editor) => (editorRef.current = setTextEditor(editor))}
-      initialValue={noticia}
+      initialValue={content}
       init={{
         height: 500,
         menubar: false,

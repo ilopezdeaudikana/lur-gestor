@@ -14,7 +14,7 @@ export const NavButtons: React.FC<Props> = React.memo(({ id }) => {
         <span className='left'>
           <Link to={'/'}>
             <UnorderedListOutlined />
-            Volver al listado
+            List{' '}
           </Link>
         </span>
         {id && (
@@ -22,13 +22,13 @@ export const NavButtons: React.FC<Props> = React.memo(({ id }) => {
             <span className='left'>
               <Link to={'/editor/' + id}>
                 <FileOutlined />
-                Editar al art&iacute;culo
+                Edit article
               </Link>
             </span>
             <span className='left'>
               <Link to={'/article/' + id}>
                 <FileOutlined />
-                Volver al art&iacute;culo
+                Back to article{' '}
               </Link>
             </span>
           </Fragment>

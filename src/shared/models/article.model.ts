@@ -2,9 +2,9 @@
 export interface Article {
   id: string;
   url: string;
-  titulo: string;
+  title: string;
   description?: string;
-  noticia: string;
-  imagen_frontal: string;
-  imagen_mini: string;
+  content: string;
+  image_main: string;
+  image_mini: string;
 }
