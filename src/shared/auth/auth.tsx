@@ -1,14 +1,9 @@
 import { FC, useState, useContext, createContext } from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 interface Props {
   path?: string;
   children?: any;
-}
-
-interface PrivateRouteProps extends Props {
-  exact: boolean;
-  component?: any;
 }
 
 interface UserContext {
@@ -41,30 +36,12 @@ export const useAuth = () => {
   return useContext(authContext);
 };
 
-export const PrivateRoute: FC<PrivateRouteProps> = (
-  props: PrivateRouteProps
-) => {
-  const { component: Component, children, ...rest } = props;
-  const auth: UserContext = useAuth();
-  return (
-    <Route
-      {...rest}
-      render={(routeProps) =>
-        auth.user ? (
-          Component ? (
-            <Component {...routeProps} />
-          ) : (
-            children
-          )
-        ) : (
-          <Redirect
-            to={{
-              pathname: '/login',
-              state: { from: routeProps.location },
-            }}
-          />
-        )
-      }
-    />
-  );
+export const PrivateRoute = ({ children }: { children: any }) => {
+  const { user } = useAuth()
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
 };
+

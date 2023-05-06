@@ -17,9 +17,9 @@ export const TextEditor: React.FC<Props> = ({noticia, setTextEditor}) => {
         height: 500,
         menubar: false,
         plugins: [
-          'advlist autolink lists link image charmap print preview anchor',
-          'searchreplace visualblocks code fullscreen',
-          'insertdatetime media table paste code help wordcount',
+          'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview', 'anchor',
+          'searchreplace', 'visualblocks', 'code', 'fullscreen',
+          'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
         ],
         toolbar:
           'undo redo | formatselect | ' +

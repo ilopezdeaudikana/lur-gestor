@@ -1,5 +1,5 @@
 import { Form, Input, Button } from 'antd';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../shared/auth/auth';
 import * as jsMd5 from 'js-md5';
 import { message } from 'antd';
@@ -13,7 +13,7 @@ interface User {
 }
 
 export const Login = () => {
-  const history = useHistory();
+  const history = useNavigate();
   const location: { state: { from: any } } = useLocation();
   const { signin } = useAuth();
 
@@ -34,7 +34,7 @@ export const Login = () => {
       .then((response: Response) => response.json())
       .then((auth: { user: string }) => {
         if (auth.user !== 'invalid') {
-          history.replace(from);
+          history(from, { replace: true });
         } else {
           message.error('Auth error');
         }
@@ -47,7 +47,7 @@ export const Login = () => {
   const onFinish = (values: User) => {
     signin(() => {
       if(isDev) {
-        history.replace(from);
+        history(from, { replace: true });
       } else {
         apiRequest(values);
       }

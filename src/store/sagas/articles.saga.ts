@@ -28,7 +28,7 @@ export function* fetchArticles(action: Action) {
   try {
     const response: ArticlesResponse = yield call(getArticles, action.payload);
     yield put({ type: ARTICLES_FETCH_SUCCEEDED, payload: response.data });
-  } catch (e) {
+  } catch (e: any) {
     console.log(e);
     yield put({ type: ARTICLES_FETCH_FAILED, message: e.message });
   }
@@ -38,9 +38,9 @@ export function* fetchArticle(action: Action) {
   try {
     const response: Article = yield call(getArticle, action.payload);
     yield put({ type: ARTICLE_FETCH_SUCCEEDED, payload: response });
-  } catch (e) {
+  } catch (e: any) {
     console.log(e);
-    yield put({ type: ARTICLE_FETCH_FAILED, message: e.message });
+    yield put({ type: ARTICLE_FETCH_FAILED, message: e?.message });
   }
 }
 
@@ -48,7 +48,7 @@ export function* updateArticle(action: Action) {
   try {
     const response: Article = yield call(save, action.payload.article);
     yield put({ type: ARTICLE_UPDATE_SUCCEEDED, payload: response });
-    yield call(action.payload.history.push, `/`);
+    yield call(action.payload.history, `/`);
     yield call([message, 'info'], 'Post guardado con éxito');
   } catch (e) {
     console.log(e);
@@ -60,7 +60,7 @@ export function* createArticle(action: Action) {
   try {
     const response: Article = yield call(save, action.payload.article);
     yield put({ type: ARTICLE_CREATE_SUCCEEDED, payload: response });
-    yield call(action.payload.history.push, `/`);
+    yield call(action.payload.history, `/`);
     yield call([message, 'info'], 'Acabas de crear un nuevo post');
   } catch (e) {
     console.log(e);
@@ -72,7 +72,7 @@ export function* deleteArticle(action: Action) {
   try {
     yield call(destroy, action.payload.id);
     yield put({ type: ARTICLE_DELETE_SUCCEEDED, payload: action.payload.id });
-    yield call(action.payload.history.push, `/`);
+    yield call(action.payload.history, `/`);
     yield call([message, 'info'], 'Acabas de eliminar un post');
   } catch (e) {
     console.log(e);

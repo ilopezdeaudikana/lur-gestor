@@ -2,7 +2,7 @@ import { Modal, Space } from 'antd';
 import { ExclamationCircleOutlined, DeleteOutlined } from '@ant-design/icons';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { deleteArticle } from '../../store/actions/actions';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 export const DeleteButton: FC<Props> = ({ id }) => {
   const { confirm } = Modal;
   const dispatch = useDispatch();
-  const history = useHistory();
+  const history = useNavigate();
   const showDeleteConfirm = () => {
     confirm({
       title: 'Borrar post',

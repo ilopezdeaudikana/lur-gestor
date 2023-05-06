@@ -1,11 +1,11 @@
-import './nav-buttons.scss';
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import { FileOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import { DeleteButton } from '.';
+import './nav-buttons.scss'
+import React, { Fragment } from 'react'
+import { Link } from 'react-router-dom'
+import { FileOutlined, UnorderedListOutlined } from '@ant-design/icons'
+import { DeleteButton } from '.'
 
 interface Props {
-  id?: string;
+  id?: string
 }
 export const NavButtons: React.FC<Props> = React.memo(({ id }) => {
   return (
@@ -17,16 +17,24 @@ export const NavButtons: React.FC<Props> = React.memo(({ id }) => {
             Volver al listado
           </Link>
         </span>
-        <span className='left'>
-          {id && (
-            <Link to={'/article/' + id}>
-              <FileOutlined />
-              Volver al art&iacute;culo
-            </Link>
-          )}
-        </span>
+        {id && (
+          <Fragment>
+            <span className='left'>
+              <Link to={'/editor/' + id}>
+                <FileOutlined />
+                Editar al art&iacute;culo
+              </Link>
+            </span>
+            <span className='left'>
+              <Link to={'/article/' + id}>
+                <FileOutlined />
+                Volver al art&iacute;culo
+              </Link>
+            </span>
+          </Fragment>
+        )}
         <span className='right'>{id && <DeleteButton id={id} />}</span>
       </header>
     </Fragment>
-  );
-});
+  )
+})

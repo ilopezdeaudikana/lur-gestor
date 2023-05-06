@@ -1,118 +1,124 @@
-import { Fragment } from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { Form, Input, Button, Space } from 'antd';
-import { TextEditor } from './text-editor';
-import { Uploader } from './uploader';
-import { updateArticle, createArticle } from '../../store/actions/actions';
+import { Fragment, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { Form, Input, Button, Space } from 'antd'
+import { TextEditor } from './text-editor'
+import { Uploader } from './uploader'
+import { updateArticle, createArticle } from '../../store/actions/actions'
 
-import { Article } from '../models';
+import { Article } from '../models'
 
 interface Props {
-  article?: Article;
+  article?: Article
 }
 
 export const ArticleForm: React.FC<Props> = ({ article }) => {
-  const { titulo, noticia, id } = article || {};
-  let tinymce: any;
-  const [form] = Form.useForm();
-  const dispatch = useDispatch();
-  const history = useHistory();
+  const { titulo, noticia, id } = article || {}
+  let tinymce: any
+  const [form] = Form.useForm()
+  const dispatch = useDispatch()
+  const history = useNavigate()
   const onFinish = async (values: any) => {
-    const newValues: Article = Object.assign({}, values);
+    const newValues: Article = Object.assign({}, values)
     const imageMini = values.imagen_mini
       ? await readFileAsync(values.imagen_mini[0].originFileObj)
-      : null;
+      : null
     const imageFrontal = values.imagen_frontal
       ? await readFileAsync(values.imagen_frontal[0].originFileObj)
-      : null;
+      : null
     if (imageMini) {
       newValues.imagen_mini = {
         filename: values.imagen_mini[0].name,
         filetype: values.imagen_mini[0].type,
-        value: imageMini,
-      };
+        value: imageMini
+      }
     }
     if (imageFrontal) {
       newValues.imagen_frontal = {
         filename: values.imagen_frontal[0].name,
         filetype: values.imagen_frontal[0].type,
-        value: imageFrontal,
-      };
+        value: imageFrontal
+      }
     }
     if (tinymce) {
-      newValues.noticia = tinymce.getContent();
+      newValues.noticia = tinymce.getContent()
     }
     if (id) {
-      dispatch(updateArticle({ article: { ...newValues, id }, history }));
+      dispatch(updateArticle({ article: { ...newValues, id }, history }))
     } else {
-      dispatch(createArticle({ article: { ...newValues }, history }));
+      dispatch(createArticle({ article: { ...newValues }, history }))
     }
-  };
-  if (article) {
-    form.setFieldsValue({
-      titulo,
-    });
   }
+
+  useEffect(() => {
+    if (titulo) {
+      form.setFieldsValue({
+        titulo
+      })
+    }
+  }, [titulo, form])
+  
 
   const readFileAsync = (file: any) => {
     return new Promise((resolve, reject) => {
-      let reader = new FileReader();
+      let reader = new FileReader()
 
       reader.onload = () => {
-        resolve((reader.result as string).split(',')[1]);
-      };
+        resolve((reader.result as string).split(',')[1])
+      }
 
-      reader.onerror = reject;
+      reader.onerror = reject
 
-      reader.readAsDataURL(file);
-    });
-  };
+      reader.readAsDataURL(file)
+    })
+  }
 
   const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-  };
+    console.log('Failed:', errorInfo)
+  }
 
-  const setTextArea = (e: any) => (tinymce = e);
+  const setTextArea = (e: any) => (tinymce = e)
 
   return (
     <Fragment>
-      <Form
-        form={form}
-        wrapperCol={{ span: 16 }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        layout='vertical'
-      >
-        <Form.Item
-          label='T&iacute;tulo'
-          name='titulo'
-          rules={[
-            {
-              required: true,
-              message: 'Please input your titulo!',
-            },
-          ]}
+      {id && (
+        <Form
+          form={form}
+          wrapperCol={{ span: 16 }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          layout='vertical'
         >
-          <Input />
-        </Form.Item>
-        <Space direction='vertical'>
-          <Uploader name='imagen_frontal' label='Imagen Grande' />
-
-          <Uploader name='imagen_mini' label='Miniatura' />
-
-          <TextEditor
-            noticia={noticia}
-            setTextEditor={(e: any) => setTextArea(e)}
-          />
-
-          <Form.Item wrapperCol={{ span: 16 }}>
-            <Button type='primary' htmlType='submit'>
-              Publicar Art&iacute;culo
-            </Button>
+          <Form.Item
+            label='T&iacute;tulo'
+            name='titulo'
+            rules={[
+              {
+                required: true,
+                message: 'Please input your titulo!'
+              }
+            ]}
+          >
+            <Input />
           </Form.Item>
-        </Space>
-      </Form>
+          <Space direction='vertical'>
+            <Uploader name='imagen_frontal' label='Imagen Grande' />
+
+            <Uploader name='imagen_mini' label='Miniatura' />
+
+            <TextEditor
+              noticia={noticia}
+              setTextEditor={(e: any) => setTextArea(e)}
+            />
+
+            <Form.Item wrapperCol={{ span: 16 }}>
+              <Button type='primary' htmlType='submit'>
+                Publicar Art&iacute;culo
+              </Button>
+            </Form.Item>
+          </Space>
+        </Form>
+      )}
     </Fragment>
-  );
-};
+  )
+}

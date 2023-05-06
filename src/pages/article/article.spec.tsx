@@ -5,7 +5,7 @@ import { ArticlePage } from './article';
 import { ARTICLE_FETCH_REQUESTED } from '../../store/sagas/articles.saga';
 jest.mock('react-router-dom', () => ({
   useParams: () => ({ url: 'url-to-test' }),
-  useHistory: jest.fn(),
+  useNavigate: jest.fn(),
   Link: () => '<div></div>'
 }));
 afterEach(cleanup);

@@ -3,40 +3,40 @@ import {
   ARTICLE_DELETE_REQUESTED,
   ARTICLE_FETCH_REQUESTED,
   ARTICLE_UPDATE_REQUESTED,
-  ARTICLE_CREATE_REQUESTED,
-} from '../../store/sagas/articles.saga';
-import { ArticleListConfig, Article } from '../../shared/models';
+  ARTICLE_CREATE_REQUESTED
+} from '../../store/sagas/articles.saga'
+import { ArticleListConfig, Article } from '../../shared/models'
 
 export const fetchArticles = (query: ArticleListConfig) => ({
   type: ARTICLES_FETCH_REQUESTED,
-  payload: query,
-});
+  payload: query
+})
 
 export const fetchArticle = (url: string) => ({
   type: ARTICLE_FETCH_REQUESTED,
-  payload: url,
-});
+  payload: url
+})
 
 export const deleteArticle = (obj: {
-  id: string;
-  history: { push: (path: string) => void };
+  id: string
+  history: (path: string) => void
 }) => ({
   type: ARTICLE_DELETE_REQUESTED,
-  payload: obj,
-});
+  payload: obj
+})
 
 export const updateArticle = (obj: {
-  article: Article;
-  history: { push: (path: string) => void };
+  article: Article
+  history: (path: string) => void
 }) => ({
   type: ARTICLE_UPDATE_REQUESTED,
-  payload: obj,
-});
+  payload: obj
+})
 
 export const createArticle = (obj: {
-  article: Partial<Article>;
-  history: { push: (path: string) => void };
+  article: Partial<Article>
+  history: (path: string) => void
 }) => ({
   type: ARTICLE_CREATE_REQUESTED,
-  payload: obj,
-});
+  payload: obj
+})

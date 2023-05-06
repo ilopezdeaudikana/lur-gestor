@@ -1,18 +1,17 @@
-import './App.scss';
-import 'antd/dist/antd.css';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { PrivateRoute, ProvideAuth } from './shared/auth/auth';
-import { store } from './store/store';
+import './App.scss'
+import 'antd/dist/reset.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { PrivateRoute, ProvideAuth } from './shared/auth/auth'
+import { store } from './store/store'
 import {
   Login,
   EditorPage,
-  /* Four04Page,*/
   CreatePage,
   ArticlePage,
-  Home,
-} from './pages';
-import styled from 'styled-components';
+  Home
+} from './pages'
+import styled from 'styled-components'
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -21,7 +20,7 @@ export const Wrapper = styled.div`
   width: 100%;
   padding: 5rem;
   color: #444;
-`;
+`
 
 const PageNotFound = () => {
   return (
@@ -30,8 +29,8 @@ const PageNotFound = () => {
         <h3>This page could not be found</h3>
       </div>
     </div>
-  );
-};
+  )
+}
 
 function App() {
   return (
@@ -40,30 +39,59 @@ function App() {
         <Provider store={store}>
           <div data-testid='App' className='App'>
             <Wrapper>
-              <Switch>
-                <Route exact path='/login' component={Login} />
-                <PrivateRoute exact path='/' component={Home} />
-                <PrivateRoute
-                  exact
+              <Routes>
+                <Route path='/login' element={<Login />} />
+                <Route
+                  path='/'
+                  element={
+                    <PrivateRoute>
+                      <Home />
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route
                   path='/article/:url'
-                  component={ArticlePage}
+                  element={
+                    <PrivateRoute>
+                      <ArticlePage />
+                    </PrivateRoute>
+                  }
                 />
-                <PrivateRoute exact path='/create' component={CreatePage} />
-                <PrivateRoute exact path='/editor' component={EditorPage} />
-                <PrivateRoute
-                  exact
+                <Route
+                  path='/article/:url'
+                  element={
+                    <PrivateRoute>
+                      <CreatePage />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path='/editor'
+                  element={
+                    <PrivateRoute>
+                      <EditorPage />
+                    </PrivateRoute>
+                  }
+                />
+
+                <Route
                   path='/editor/:url'
-                  component={EditorPage}
+                  element={
+                    <PrivateRoute>
+                      <EditorPage />
+                    </PrivateRoute>
+                  }
                 />
-                <Route component={PageNotFound} />
-              </Switch>
+
+                <Route element={<PageNotFound />} />
+              </Routes>
             </Wrapper>
           </div>
         </Provider>
       </ProvideAuth>
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
-
+export default App

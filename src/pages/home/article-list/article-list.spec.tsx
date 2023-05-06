@@ -1,8 +1,7 @@
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
-import { render, cleanup } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import { render, cleanup, screen } from '@testing-library/react';
 import { ArticleList } from './article-list';
 import { ARTICLES_FETCH_REQUESTED } from '../../../store/sagas/articles.saga';
 
@@ -16,12 +15,12 @@ describe('ArticleList', () => {
     };
     const store = mockStore(initialState);
 
-    const { getByText } = render(
+    render(
       <Provider store={store}>
         <ArticleList limit={10} />
       </Provider>
     );
-    const loading = getByText(/No articles are here/);
+    const loading = screen.getByText(/No articles are here/);
     const actions = store.getActions();
     const expectedPayload = {
       type: ARTICLES_FETCH_REQUESTED,
@@ -45,15 +44,14 @@ describe('ArticleList', () => {
       },
     };
     const store = mockStore(initialState);
-    const history = createMemoryHistory();
-    const { getByText } = render(
-      <Router history={history}>
+    render(
+      <BrowserRouter>
         <Provider store={store}>
           <ArticleList limit={10} />
         </Provider>
-      </Router>
+      </BrowserRouter>
     );
-    const title = getByText(/Dummy/);
+    const title = screen.getByText(/Dummy/);
     expect(title).toBeInTheDocument();
   });
 });

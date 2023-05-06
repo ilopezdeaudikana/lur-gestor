@@ -1,21 +1,16 @@
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Space } from 'antd';
 import { NavButtons } from '../../shared/buttons/nav-buttons';
 import { ArticleForm } from '../../shared/form/article-form';
-import { Article, State } from '../../shared/models';
+import { State } from '../../shared/models';
 
-interface Props {
-  currentArticle: Article;
-  save: Function;
-}
-
-export const EditorPage: React.FC<Props> = () => {
+export const EditorPage: React.FC = () => {
   const article = useSelector((state: State) => state.currentArticle);
   const { id } = article;
 
   if (!article.id) {
-    return <Redirect to='/' />;
+    return <Navigate to='/' />;
   }
 
   return (
