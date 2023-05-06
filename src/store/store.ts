@@ -1,23 +1,19 @@
-import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
-import { combineReducers } from 'redux'
-import {
-  articlesReducer,
-  currentArticleReducer
-} from './reducers/articles.reducer'
 import articlesSaga from './sagas/articles.saga'
 
+import { configureStore } from '@reduxjs/toolkit'
+import articlesReducer from './slices/articles-slice'
+import currentArticleReducer from './slices/current-article-slice'
 export const sagaMiddleware = createSagaMiddleware()
-const enhancers = applyMiddleware(sagaMiddleware)
 
-const rootReducer = combineReducers({
-  articles: articlesReducer,
-  currentArticle: currentArticleReducer
+export const store = configureStore({
+  reducer: {
+    articles: articlesReducer,
+    currentArticle: currentArticleReducer
+  },
+  middleware: (getDefaultMiddleware) => {
+    // disabling serializableCheck enables passing navigate function to the saga
+    return getDefaultMiddleware({ thunk: false, serializableCheck: false }).prepend(sagaMiddleware);
+  }
 })
-
-export const configureStore = () => {
-  return createStore(rootReducer, enhancers)
-}
-
-export const store = configureStore()
 sagaMiddleware.run(articlesSaga)

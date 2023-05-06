@@ -1,7 +1,6 @@
 import { runSaga } from 'redux-saga';
 import {
   fetchArticles,
-  ARTICLES_FETCH_SUCCEEDED,
   ARTICLES_FETCH_FAILED,
 } from './articles.saga';
 import * as articlesService from '../../shared/services/articles.service';
@@ -12,10 +11,10 @@ const dummyResponse = {
       {
         id: 'string',
         url: 'string',
-        titulo: 'string',
-        noticia: 'string',
-        imagen_frontal: 'any',
-        imagen_mini: 'any',
+        title: 'string',
+        content: 'string',
+        image_main: 'any',
+        image_mini: 'any',
       },
     ],
     total: 1,
@@ -44,7 +43,7 @@ describe('fetchArticles', () => {
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(dispatched).toEqual([
-      { type: ARTICLES_FETCH_SUCCEEDED, payload: dummyResponse.data },
+      { type: 'lur-cms/articles/setArticles', payload: dummyResponse.data },
     ]);
   });
 

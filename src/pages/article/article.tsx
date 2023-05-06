@@ -9,7 +9,12 @@ import { NavButtons } from '../../shared/buttons/nav-buttons'
 export const ArticlePage: React.FC = () => {
   const { url } = useParams<{ url: string }>()
   const dispatch = useDispatch()
-  const article = useSelector((state: State) => state.currentArticle)
+  const currentArticle = useSelector((state: State) => {
+    return state.currentArticle
+  })
+
+  const { item: article } = currentArticle
+  
   useEffect(() => {
     if (url) {
       dispatch(fetchArticle(url))
@@ -22,10 +27,10 @@ export const ArticlePage: React.FC = () => {
 
       {article && (
         <Fragment>
-          <h1>{article.titulo}</h1>
+          <h1>{article.title}</h1>
           <NavButtons id={article.id} />
           <Divider />
-          <div dangerouslySetInnerHTML={{ __html: article.noticia }}></div>
+          <div dangerouslySetInnerHTML={{ __html: article.content }}></div>
           <Divider />
           <NavButtons id={article.id} />
         </Fragment>

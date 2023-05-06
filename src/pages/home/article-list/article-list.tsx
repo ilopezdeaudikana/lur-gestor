@@ -35,8 +35,8 @@ export const ArticleList: React.FC<Props> = React.memo((props: Props) => {
   const columns = [
     {
       title: () => <span>T&iacute;tulo</span>,
-      dataIndex: 'titulo',
-      key: 'titulo',
+      dataIndex: 'title',
+      key: 'title',
       render: (text: string, row: any) => (
         <Link to={'/article/' + row.url}>
           <TitleLink dangerouslySetInnerHTML={{ __html: text }}></TitleLink>

@@ -2,22 +2,17 @@ export * from './article-list-config.model';
 export * from './errors.model';
 export * from './user.model';
 
-export interface Action {
-  type: string;
-  payload: any;
-}
-
 export interface Article {
   id: string;
   url: string;
-  titulo: string;
+  title: string;
   description?: string;
-  noticia: string;
-  imagen_frontal: any;
-  imagen_mini: any;
+  content: string;
+  image_main: any;
+  image_mini: any;
 }
 export interface ArticlesResponse {
-  data: { output: Article[]; total: number };
+  data: { list: Article[]; total: number };
 }
 
 export interface ArticleState {
@@ -27,5 +22,5 @@ export interface ArticleState {
 
 export interface State {
   articles: ArticleState;
-  currentArticle: Article;
+  currentArticle: { item: Article };
 }

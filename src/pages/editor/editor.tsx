@@ -6,7 +6,9 @@ import { ArticleForm } from '../../shared/form/article-form';
 import { State } from '../../shared/models';
 
 export const EditorPage: React.FC = () => {
-  const article = useSelector((state: State) => state.currentArticle);
+  const currentArticle = useSelector((state: State) => state.currentArticle);
+  const { item: article } = currentArticle
+
   const { id } = article;
 
   if (!article.id) {

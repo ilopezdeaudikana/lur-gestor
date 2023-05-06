@@ -35,7 +35,7 @@ describe('ArticleList', () => {
       articles: {
         list: [
           {
-            titulo: 'Dummy',
+            title: 'Dummy',
             id: '1',
             url: 'dummy-url',
           },
