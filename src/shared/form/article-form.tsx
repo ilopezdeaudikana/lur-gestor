@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Form, Input, Button, Space } from 'antd'
@@ -17,7 +17,7 @@ export const ArticleForm: React.FC<Props> = ({ article }) => {
   let tinymce: any
   const [form] = Form.useForm()
   const dispatch = useDispatch()
-  const history = useNavigate()
+  const navigate = useNavigate()
   const onFinish = async (values: any) => {
     const newValues: Article = Object.assign({}, values)
     const imageMini = values.image_mini
@@ -44,9 +44,9 @@ export const ArticleForm: React.FC<Props> = ({ article }) => {
       newValues.content = tinymce.getContent()
     }
     if (id) {
-      dispatch(updateArticle({ article: { ...newValues, id }, history }))
+      dispatch(updateArticle({ article: { ...newValues, id }, navigate }))
     } else {
-      dispatch(createArticle({ article: { ...newValues }, history }))
+      dispatch(createArticle({ article: { ...newValues }, navigate }))
     }
   }
 
@@ -57,7 +57,6 @@ export const ArticleForm: React.FC<Props> = ({ article }) => {
       })
     }
   }, [title, form])
-  
 
   const readFileAsync = (file: any) => {
     return new Promise((resolve, reject) => {
@@ -80,45 +79,43 @@ export const ArticleForm: React.FC<Props> = ({ article }) => {
   const setTextArea = (e: any) => (tinymce = e)
 
   return (
-    <Fragment>
-      {id && (
-        <Form
-          form={form}
-          wrapperCol={{ span: 16 }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          layout='vertical'
+    <>
+      <Form
+        form={form}
+        wrapperCol={{ span: 16 }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        layout='vertical'
+      >
+        <Form.Item
+          label='Title'
+          name='title'
+          rules={[
+            {
+              required: true,
+              message: 'Please input your title!'
+            }
+          ]}
         >
-          <Form.Item
-            label='T&iacute;tulo'
-            name='title'
-            rules={[
-              {
-                required: true,
-                message: 'Please input your title!'
-              }
-            ]}
-          >
-            <Input />
+          <Input />
+        </Form.Item>
+        <Space direction='vertical'>
+          <Uploader name='image_main' label='Main Image' />
+
+          <Uploader name='image_mini' label='Thumbnail' />
+
+          <TextEditor
+            content={content}
+            setTextEditor={(e: any) => setTextArea(e)}
+          />
+
+          <Form.Item wrapperCol={{ span: 16 }}>
+            <Button type='primary' htmlType='submit'>
+              Publish Article
+            </Button>
           </Form.Item>
-          <Space direction='vertical'>
-            <Uploader name='image_main' label='Imagen Grande' />
-
-            <Uploader name='image_mini' label='Miniatura' />
-
-            <TextEditor
-              content={content}
-              setTextEditor={(e: any) => setTextArea(e)}
-            />
-
-            <Form.Item wrapperCol={{ span: 16 }}>
-              <Button type='primary' htmlType='submit'>
-                Publicar Art&iacute;culo
-              </Button>
-            </Form.Item>
-          </Space>
-        </Form>
-      )}
-    </Fragment>
+        </Space>
+      </Form>
+    </>
   )
 }

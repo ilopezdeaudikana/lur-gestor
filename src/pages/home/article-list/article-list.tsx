@@ -34,7 +34,7 @@ export const ArticleList: React.FC<Props> = React.memo((props: Props) => {
 
   const columns = [
     {
-      title: () => <span>T&iacute;tulo</span>,
+      title: () => <span>Title</span>,
       dataIndex: 'title',
       key: 'title',
       render: (text: string, row: any) => (

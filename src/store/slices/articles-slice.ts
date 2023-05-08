@@ -12,7 +12,7 @@ const articlesSlice = createSlice({
   reducers: {
     setArticles(state, action: PayloadAction<{ list: Article[]; total: number; }>) {
       state.list = action.payload.list
-      state.total = action.payload.total
+      state.total = action.payload.list.length
     },
     updateArticle(state, action: PayloadAction<Article>) {
       state.list = state.list.map((article: Article) =>
@@ -27,6 +27,7 @@ const articlesSlice = createSlice({
     },
     createArticle(state, action: PayloadAction<Article>) {
       state.list = state.list.concat(action.payload)
+      state.total = state.total++
     },
     deleteArticle(state, action: PayloadAction<string>) {
       state.list = state.list.filter(

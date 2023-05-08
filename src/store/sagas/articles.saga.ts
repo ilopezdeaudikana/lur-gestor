@@ -48,12 +48,12 @@ export function* fetchArticle(action: { type: string, payload: any }) {
 
 export function* putArticle(action: {
   type: string
-  payload: { article: Article; history: any }
+  payload: { article: Article; navigate: any }
 }) {
   try {
     const response: Article = yield call(save, action.payload.article)
     yield put(updateArticle(response))
-    yield call(action.payload.history, `/`)
+    yield call(action.payload.navigate, `/`)
     yield call([message, 'info'], 'Article updated succesfully')
   } catch (e) {
     console.log(e)
@@ -63,12 +63,12 @@ export function* putArticle(action: {
 
 export function* postArticle(action: {
   type: string
-  payload: { article: Article; history: any }
+  payload: { article: Article; navigate: any }
 }) {
   try {
     const response: Article = yield call(save, action.payload.article)
     yield put(createArticle(response))
-    yield call(action.payload.history, `/`)
+    yield call(action.payload.navigate, `/`)
     yield call([message, 'info'], 'Article created succesfully')
   } catch (e) {
     console.log(e)
@@ -78,12 +78,12 @@ export function* postArticle(action: {
 
 export function* eraseArticle(action: {
   type: string
-  payload: { id: string; history: any }
+  payload: { id: string; navigate: any }
 }) {
   try {
     yield call(destroy, action.payload.id)
     yield put(deleteArticle(action.payload.id))
-    yield call(action.payload.history, `/`)
+    yield call(action.payload.navigate, `/`)
     yield call([message, 'info'], 'Article deleted succesfully')
   } catch (e) {
     console.log(e)

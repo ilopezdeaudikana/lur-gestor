@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { Form, Button, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 interface Props {
@@ -20,7 +19,7 @@ export const Uploader: React.FC<Props> = ({ name, label }) => {
   };
 
   return (
-    <Fragment>
+    <>
       <Form.Item
         name={name}
         valuePropName='fileList'
@@ -31,6 +30,6 @@ export const Uploader: React.FC<Props> = ({ name, label }) => {
           <Button icon={<UploadOutlined />}>{label}</Button>
         </Upload>
       </Form.Item>
-    </Fragment>
+    </>
   );
 };

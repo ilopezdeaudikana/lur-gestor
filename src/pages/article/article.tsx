@@ -1,4 +1,4 @@
-import { useEffect, Fragment } from 'react'
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Divider } from 'antd'
@@ -26,14 +26,14 @@ export const ArticlePage: React.FC = () => {
       {!article && <div>Loading articles...</div>}
 
       {article && (
-        <Fragment>
+        <>
           <h1>{article.title}</h1>
           <NavButtons id={article.id} />
           <Divider />
           <div dangerouslySetInnerHTML={{ __html: article.content }}></div>
           <Divider />
           <NavButtons id={article.id} />
-        </Fragment>
+        </>
       )}
     </div>
   )

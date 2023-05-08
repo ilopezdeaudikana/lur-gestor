@@ -11,7 +11,7 @@ interface Props {
 export const DeleteButton: FC<Props> = ({ id }) => {
   const { confirm } = Modal;
   const dispatch = useDispatch();
-  const history = useNavigate();
+  const navigate = useNavigate();
   const showDeleteConfirm = () => {
     confirm({
       title: 'Borrar post',
@@ -20,7 +20,7 @@ export const DeleteButton: FC<Props> = ({ id }) => {
         '',
       onOk() {
         dispatch(
-          deleteArticle({id, history})
+          deleteArticle({id, navigate})
         );
       },
       onCancel() {},

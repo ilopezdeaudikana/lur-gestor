@@ -1,6 +1,6 @@
-import { Space } from 'antd';
-import { NavButtons } from '../../shared/buttons/nav-buttons';
-import { ArticleForm } from '../../shared/form/article-form';
+import { Space } from 'antd'
+import { NavButtons } from '../../shared/buttons/nav-buttons'
+import { ArticleForm } from '../../shared/form/article-form'
 
 export const CreatePage = () => {
   return (
@@ -10,5 +10,5 @@ export const CreatePage = () => {
         <ArticleForm />
       </Space>
     </div>
-  );
-};
+  )
+}
