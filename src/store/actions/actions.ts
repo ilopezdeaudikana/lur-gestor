@@ -19,7 +19,7 @@ export const fetchArticle = (url: string) => ({
 
 export const deleteArticle = (obj: {
   id: string
-  history: (path: string) => void
+  navigate: (path: string) => void
 }) => ({
   type: ARTICLE_DELETE_REQUESTED,
   payload: obj
@@ -27,7 +27,7 @@ export const deleteArticle = (obj: {
 
 export const updateArticle = (obj: {
   article: Article
-  history: (path: string) => void
+  navigate: (path: string) => void
 }) => ({
   type: ARTICLE_UPDATE_REQUESTED,
   payload: obj
@@ -35,7 +35,7 @@ export const updateArticle = (obj: {
 
 export const createArticle = (obj: {
   article: Partial<Article>
-  history: (path: string) => void
+  navigate: (path: string) => void
 }) => ({
   type: ARTICLE_CREATE_REQUESTED,
   payload: obj

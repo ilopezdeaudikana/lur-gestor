@@ -13,7 +13,7 @@ interface User {
 }
 
 export const Login = () => {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const location: { state: { from: any } } = useLocation();
   const { signin } = useAuth();
 
@@ -34,7 +34,7 @@ export const Login = () => {
       .then((response: Response) => response.json())
       .then((auth: { user: string }) => {
         if (auth.user !== 'invalid') {
-          history(from, { replace: true });
+          navigate(from, { replace: true });
         } else {
           message.error('Auth error');
         }
@@ -47,7 +47,7 @@ export const Login = () => {
   const onFinish = (values: User) => {
     signin(() => {
       if(isDev) {
-        history(from, { replace: true });
+        navigate(from, { replace: true });
       } else {
         apiRequest(values);
       }

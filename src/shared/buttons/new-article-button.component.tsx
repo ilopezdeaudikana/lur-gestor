@@ -5,7 +5,7 @@ export const NewArticleButton = () => {
   return (
     <span>
       <Link to='/create'>
-        <FileAddOutlined /> Crear art&iacute;culo nuevo
+        <FileAddOutlined /> Create a new Article
       </Link>
     </span>
   );

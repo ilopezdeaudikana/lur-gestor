@@ -2,7 +2,7 @@
 
 Small CMS created using `React`, `Typescript`, `React hooks`, `Redux`, `Sagas`, `Antd` and `Styled components` and tested using `Jest`.
 
-In `development` mode, type anything to bypass the login view. `Edit article` won't work because a new list of articles is requested every time from the `Articles` view and the response is mocked data
+In `development` mode, type anything to bypass the login view. `Edit article` won't work because a new list of articles is requested every time from the `Articles` view and the response is mocked data.
 
 
 ### Available Scripts

@@ -84,6 +84,15 @@ function App() {
                   }
                 />
 
+                <Route
+                  path='/create'
+                  element={
+                    <PrivateRoute>
+                      <CreatePage />
+                    </PrivateRoute>
+                  }
+                />
+
                 <Route element={<PageNotFound />} />
               </Routes>
             </Wrapper>
